@@ -14,6 +14,8 @@
 #include <cmath>
 #include <cstdio>
 #include <cstring>
+#include <fstream>
+#include <iostream>
 
 #include "utils.h"
 #include "FaissAssert.h"
@@ -241,6 +243,10 @@ void Clustering::train (idx_t nx, const float *x_in, Index & index) {
         index.add(k, best_centroids.data());
     }
 
+    // write the assignment to a file
+    std::ofstream assign_out("assignment.txt");
+    for (int i = 0; i < nx; ++i)
+        assign_out << assign[i] << std::endl;
 }
 
 float kmeans_clustering (size_t d, size_t n, size_t k,
